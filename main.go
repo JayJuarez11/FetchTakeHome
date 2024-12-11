@@ -7,8 +7,8 @@ import (
 	"math"
 	"net/http"
 	"sync"
-	"unicode"
 	"time"
+	"unicode"
 )
 
 type Item struct {
@@ -54,20 +54,16 @@ func main() {
 		mutex.Lock()
 		idMap[newId] = pointsAwarded
 		mutex.Unlock()
+		fmt.Println("Writing to local DB. ID = ", newId, ", Points Awarded = ", pointsAwarded)
 	})
 
 	// GET: Points awarded for the receipt
 	r.GET("/receipts/{id}/points", func(c *gin.Context) {
-		var id ReceiptID
-		// Validating the ID
-		if err := c.ShouldBindJSON(&id); err != nil {
-			c.JSON(http.StatusNotFound, gin.H{"Error": err.Error()})
-			return
-		}
-		// ID passed validation
-		if val, ok := idMap[id.ID]; ok {
+		id := c.Param("id")
+		if val, ok := idMap[id]; ok {
 			c.JSON(http.StatusOK, gin.H{"points": val})
 		} else {
+			fmt.Println("ID did NOT pass validation.")
 			c.JSON(http.StatusNotFound, gin.H{"Error": "Receipt has not been processed before. No points."})
 			return
 		}
