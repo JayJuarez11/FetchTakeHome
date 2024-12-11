@@ -21,6 +21,10 @@ type Receipt struct {
 	Total string `json:"total" binding:"required"`
 }
 
+type ReceiptID struct {
+	ID string `json:"id" binding:"required"`
+}
+
 func main() {
 	fmt.Println("Creating Gin Engine.")
 	// Creating Gin Engine, HTTP Router
@@ -31,11 +35,24 @@ func main() {
 		var receipt Receipt
 		// Validating the receipt
 		if err := c.ShouldBindJSON(&receipt); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
 			return
 		}
 		// Receipt passed validation
 		c.JSON(http.StatusOK, gin.H{"id": uuid.New().String()})
+	})
+
+	// GET: Points awarded for the receipt
+	r.GET("/receipts/{id}/points", func(c *gin.Context) {
+		var id ReceiptID
+		// Validating the ID
+		if err := c.ShouldBindJSON(&id); err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"Error": err.Error()})
+			return
+		}
+		// ID passed validation
+		// TODO: Determine actual points awarded
+		c.JSON(http.StatusOK, gin.H{"points": 100})
 	})
 
 
