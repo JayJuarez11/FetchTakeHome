@@ -1,0 +1,2 @@
+### GET request with dynamic variables
+GET http://localhost:8080/receipts/{id}/points
