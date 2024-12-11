@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"math"
@@ -34,7 +33,6 @@ var (
 
 func main() {
 
-	fmt.Println("Creating Gin Engine.")
 	// Creating Gin Engine, HTTP Router
 	r := gin.Default()
 
@@ -54,22 +52,19 @@ func main() {
 		mutex.Lock()
 		idMap[newId] = pointsAwarded
 		mutex.Unlock()
-		fmt.Println("Writing to local DB. ID = ", newId, ", Points Awarded = ", pointsAwarded)
 	})
 
 	// GET: Points awarded for the receipt
-	r.GET("/receipts/{id}/points", func(c *gin.Context) {
+	r.GET("/receipts/:id/points", func(c *gin.Context) {
 		id := c.Param("id")
 		if val, ok := idMap[id]; ok {
 			c.JSON(http.StatusOK, gin.H{"points": val})
 		} else {
-			fmt.Println("ID did NOT pass validation.")
 			c.JSON(http.StatusNotFound, gin.H{"Error": "Receipt has not been processed before. No points."})
 			return
 		}
 	})
 
-	fmt.Println("Starting the server on port 8080.")
 	r.Run(":8080")
 }
 
