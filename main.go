@@ -65,10 +65,13 @@ func main() {
 			return
 		}
 		// ID passed validation
-		// TODO: Determine actual points awarded
-		c.JSON(http.StatusOK, gin.H{"points": 100})
+		if val, ok := idMap[id.ID]; ok {
+			c.JSON(http.StatusOK, gin.H{"points": val})
+		} else {
+			c.JSON(http.StatusNotFound, gin.H{"Error": "Receipt has not been processed before. No points."})
+			return
+		}
 	})
-
 
 	fmt.Println("Starting the server on port 8080.")
 	r.Run(":8080")
