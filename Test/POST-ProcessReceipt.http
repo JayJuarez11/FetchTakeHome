@@ -1,0 +1,70 @@
+### Valid Request 1
+POST http://localhost:8080/receipts/process
+Content-Type: application/json
+
+{
+  "retailer": "Walgreens",
+  "purchaseDate": "2022-01-02",
+  "purchaseTime": "08:13",
+  "total": "2.65",
+  "items": [
+    {"shortDescription": "Pepsi - 12-oz", "price": "1.25"},
+    {"shortDescription": "Dasani", "price": "1.40"}
+  ]
+}
+
+### Valid Request 2
+POST http://localhost:8080/receipts/process
+Content-Type: application/json
+
+{
+  "retailer": "Target",
+  "purchaseDate": "2022-01-02",
+  "purchaseTime": "13:13",
+  "total": "1.25",
+  "items": [
+    {"shortDescription": "Pepsi - 12-oz", "price": "1.25"}
+  ]
+}
+
+### Invalid Request 1, No Retailer
+POST http://localhost:8080/receipts/process
+Content-Type: application/json
+
+{
+  "purchaseDate": "2022-01-02",
+  "purchaseTime": "13:13",
+  "total": "1.25",
+  "items": [
+    {"shortDescription": "Pepsi - 12-oz", "price": "1.25"}
+  ]
+}
+
+### Invalid Request 2, Incorrect Total Amount Format
+POST http://localhost:8080/receipts/process
+Content-Type: application/json
+
+{
+  "retailer": "MadeUpRetailerThatIsVeryLong12345",
+  "purchaseDate": "2022-01-02",
+  "purchaseTime": "13:13",
+  "total": 1.25,
+  "items": [
+    {"shortDescription": "Pepsi - 12-oz", "price": "1.25"}
+  ]
+}
+
+### Invalid Request 3, Incorrect Item Format
+POST http://localhost:8080/receipts/process
+Content-Type: application/json
+
+{
+  "retailer": "MadeUpRetailerThatIsVeryLong12345",
+  "purchaseDate": "2022-01-02",
+  "purchaseTime": "13:13",
+  "total": "1.25",
+  "items": [
+    {"shortDescription": "Pepsi - 12-oz", "price": "1.25"},
+    {"shortDescription": Dasani, "price": "1.40"}
+  ]
+}

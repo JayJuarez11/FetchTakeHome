@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"net/http"
 )
 
 
@@ -15,14 +15,14 @@ type Item struct {
 }
 type Receipt struct {
 	Retailer string `json:"retailer" binding:"required"`
-	PurchaseDate string `json:"retailer" binding:"required"`
+	PurchaseDate string `json:"purchaseDate" binding:"required"`
 	PurchaseTime string `json:"purchaseTime" binding:"required"`
 	Items []Item `json:"items" binding:"required,dive"`
 	Total string `json:"total" binding:"required"`
 }
 
 func main() {
-	fmt.Println("Hello, Go with IntelliJ!")
+	fmt.Println("Creating Gin Engine.")
 	// Creating Gin Engine, HTTP Router
 	r := gin.Default()
 
@@ -39,6 +39,6 @@ func main() {
 	})
 
 
-	fmt.Println("Starting the server on port 8080")
+	fmt.Println("Starting the server on port 8080.")
 	r.Run(":8080")
 }
