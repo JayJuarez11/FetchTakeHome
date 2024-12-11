@@ -1,2 +1,4 @@
-### GET request with dynamic variables
-GET http://localhost:8080/receipts/{id}/points
+### GET request with modifiable id
+@id = ae4e3096-63b2-4ccc-89cb-d1164e481b5b
+GET http://localhost:8080/receipts/{{id}}/points
+Content-Type: application/json
