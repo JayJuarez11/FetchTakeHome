@@ -1,0 +1,4 @@
+### GET request with modifiable id
+@id = 5c60f7bc-8885-4ece-8fdd-4e1ee39c03e6
+GET http://localhost:8080/receipts/{{id}}/points
+Content-Type: application/json
