@@ -42,14 +42,12 @@ func main() {
 			c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
 			return
 		}
-		// Receipt passed validation
+		// Receipt passed validation, updating the local db
 		var newId = uuid.New().String()
-		c.JSON(http.StatusOK, gin.H{"id": newId})
-		// Updating our local db
-		pointsAwarded := determinePointsAwarded(receipt)
 		mutex.Lock()
-		idMap[newId] = pointsAwarded
+		idMap[newId] = determinePointsAwarded(receipt)
 		mutex.Unlock()
+		c.JSON(http.StatusOK, gin.H{"id": newId})
 	})
 
 	// GET: Points awarded for the receipt
@@ -58,7 +56,7 @@ func main() {
 		if val, ok := idMap[id]; ok {
 			c.JSON(http.StatusOK, gin.H{"points": val})
 		} else {
-			c.JSON(http.StatusNotFound, gin.H{"Error": "Receipt has not been processed before. No points."})
+			c.JSON(http.StatusNotFound, gin.H{"Error": "Receipt has not been previously processed."})
 			return
 		}
 	})
