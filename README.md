@@ -1,19 +1,12 @@
-# Receipt Processor
-
-Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
-in the [api.yml](./api.yml) file. We will use the described API to test your solution.
-
-Provide any instructions required to run your application.
-
-Data does not need to persist when your application stops. It is sufficient to store information in memory. There are too many different database solutions, we will not be installing a database on our system when testing your application.
-
-## Language Selection
-
-You can assume our engineers have Go and Docker installed to run your application. Go is our preferred language, but it is not a requirement for this exercise. If you are not using Go, include a Dockerized setup to run the code. You should also provide detailed instructions if your Docker file requires any additional configuration to run the application.
-
-## Submitting Your Solution
-
-Provide a link to a public repository, such as GitHub or BitBucket, that contains your code to the provided link through Greenhouse.
+# Jaime Juarez - Receipt Processor Submission
+### Implementation Summary
+* Language: Go
+* Web Framework: Gin
+### Testing
+* The logic exists in the `main.go` file, to start the local server, simply run the `main()` function. The listening and serving HTTP will begin on port 8080.
+* For your convenience, I created two HTTP files in `Test` to assist with local testing.
+  * `POST-ProcessReceipt.http` contains several working examples of a receipt successfully processing and a few examples with intentional bad requests.
+  * `GET-GetPoints.http` contains one request to get an id. To try this without any issues, first make a succesful POST request and use the generated UUID for this part.
 
 ---
 ## Summary of API Specification
@@ -148,26 +141,3 @@ Breakdown:
   + ---------
   = 109 points
 ```
-
----
-
-# FAQ
-
-### How will this exercise be evaluated?
-An engineer will review the code you submit. At a minimum they must be able to run the service and the service must provide the expected results. You
-should provide any necessary documentation within the repository. While your solution does not need to be fully production ready, you are being evaluated so
-put your best foot forward.
-
-Part of that evaluation includes running an automated testing suite against your project to confirm it matches the specified API.
-
-### I have questions about the problem statement
-For any requirements not specified via an example, use your best judgment to determine the expected result.
-
-### Can I provide a private repository?
-If at all possible, we prefer a public repository because we do not know which engineer will be evaluating your submission. Providing a public repository
-ensures a speedy review of your submission. If you are still uncomfortable providing a public repository, you can work with your recruiter to provide access to
-the reviewing engineer.
-
-### How long do I have to complete the exercise?
-There is no time limit for the exercise. Out of respect for your time, we designed this exercise with the intent that it should take you a few hours. But, please
-take as much time as you need to complete the work.
