@@ -109,9 +109,9 @@ func determinePointsAwarded(receipt Receipt) int{
 	}
 	fmt.Println("Points Awarded After Rule 6: ", pointsAwarded)
 	// Rule 7: 10 points if the time of purchase is after 2:00pm and before 4:00pm.
-	purchaseTime, _ := time.Parse("23:59", receipt.PurchaseTime)
-	afterTime, _ := time.Parse("23:59", "14:00")
-	beforeTime, _ := time.Parse("23:59", "16:00")
+	purchaseTime, _ := time.Parse("15:04", receipt.PurchaseTime)
+	afterTime, _ := time.Parse("15:04", "14:00")
+	beforeTime, _ := time.Parse("15:04", "16:00")
 	if purchaseTime.After(afterTime) && purchaseTime.Before(beforeTime) {
 		pointsAwarded += 10
 	}
